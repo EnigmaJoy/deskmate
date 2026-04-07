@@ -5,7 +5,7 @@ export const LOCALES: Locale[] = ['it', 'en', 'zh']
 const translations = {
     it: {
         weather: {
-            title: 'Meteo',
+            title: (city: string) => `Meteo · ${city}`,
             loading: 'Caricamento...',
             unavailable: 'Meteo non disponibile',
             min: 'Min',
@@ -48,7 +48,7 @@ const translations = {
 
     en: {
         weather: {
-            title: 'Weather',
+            title: (city: string) => `Weather · ${city}`,
             loading: 'Loading...',
             unavailable: 'Weather unavailable',
             min: 'Min',
@@ -91,7 +91,7 @@ const translations = {
 
     zh: {
         weather: {
-            title: '天气',
+            title: (city: string) => `天气 · ${city}`,
             loading: '加载中...',
             unavailable: '天气不可用',
             min: '最低',
