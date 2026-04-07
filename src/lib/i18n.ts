@@ -22,6 +22,8 @@ const translations = {
         crypto: {
             title: 'Crypto',
             updatedAgo: (min: number) => `Aggiornato ${min} min fa`,
+            unavailable: 'Crypto non disponibile',
+            loading: 'Caricamento...',
         },
         status: {
             brightness: 'Luminosità',
@@ -63,6 +65,8 @@ const translations = {
         crypto: {
             title: 'Crypto',
             updatedAgo: (min: number) => `Updated ${min} min ago`,
+            unavailable: 'Crypto unavailable',
+            loading: 'Loading...',
         },
         status: {
             brightness: 'Brightness',
@@ -104,6 +108,8 @@ const translations = {
         crypto: {
             title: '加密货币',
             updatedAgo: (min: number) => `${min} 分钟前更新`,
+            unavailable: '加密货币不可用',
+            loading: '加载中...',
         },
         status: {
             brightness: '亮度',
