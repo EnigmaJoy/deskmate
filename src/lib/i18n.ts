@@ -5,7 +5,7 @@ export const LOCALES: Locale[] = ['it', 'en', 'zh']
 const translations = {
     it: {
         weather: {
-            title: 'Meteo',
+            title: (city: string) => `Meteo · ${city}`,
             loading: 'Caricamento...',
             unavailable: 'Meteo non disponibile',
             min: 'Min',
@@ -22,6 +22,8 @@ const translations = {
         crypto: {
             title: 'Crypto',
             updatedAgo: (min: number) => `Aggiornato ${min} min fa`,
+            unavailable: 'Crypto non disponibile',
+            loading: 'Caricamento...',
         },
         status: {
             brightness: 'Luminosità',
@@ -46,7 +48,7 @@ const translations = {
 
     en: {
         weather: {
-            title: 'Weather',
+            title: (city: string) => `Weather · ${city}`,
             loading: 'Loading...',
             unavailable: 'Weather unavailable',
             min: 'Min',
@@ -63,6 +65,8 @@ const translations = {
         crypto: {
             title: 'Crypto',
             updatedAgo: (min: number) => `Updated ${min} min ago`,
+            unavailable: 'Crypto unavailable',
+            loading: 'Loading...',
         },
         status: {
             brightness: 'Brightness',
@@ -87,7 +91,7 @@ const translations = {
 
     zh: {
         weather: {
-            title: '天气',
+            title: (city: string) => `天气 · ${city}`,
             loading: '加载中...',
             unavailable: '天气不可用',
             min: '最低',
@@ -104,6 +108,8 @@ const translations = {
         crypto: {
             title: '加密货币',
             updatedAgo: (min: number) => `${min} 分钟前更新`,
+            unavailable: '加密货币不可用',
+            loading: '加载中...',
         },
         status: {
             brightness: '亮度',

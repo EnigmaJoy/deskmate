@@ -1,41 +1,62 @@
+import { useCrypto } from '../hooks/useCrypto'
 import { useT } from '../hooks/useT'
 
 interface CryptoRowProps {
     name: string
     ticker: string
-    price: string
+    price: number
     change: number
 }
 
 function CryptoRow({ name, ticker, price, change }: CryptoRowProps) {
     const isUp = change >= 0
     return (
-        <div className="flex justify-between items-center py-2 border-b border-white/[0.06] last:border-0">
-            <p className="text-sm font-medium text-[#f5f5f7]">{name} · <span className="text-[#888] font-normal">{ticker}</span></p>
-            <p className="text-sm text-[#f5f5f7]">{price}</p>
-            <p className={`text-xs ${isUp ? 'text-[#30d158]' : 'text-[#ff453a]'}`}>
+        <div className="grid py-2 border-b border-white/6 last:border-0"
+             style={{ gridTemplateColumns: '1fr auto auto', gap: '0 24px' }}>
+            <p className="text-sm font-medium text-[#f5f5f7]">
+                {name} · <span className="text-[#888] font-normal">{ticker}</span>
+            </p>
+            <p className="text-sm text-[#f5f5f7] text-right tabular-nums">
+                ${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </p>
+            <p className={`text-xs text-right tabular-nums w-14 ${isUp ? 'text-[#30d158]' : 'text-[#ff453a]'}`}>
                 {isUp ? '+' : ''}{change}%
             </p>
         </div>
     )
 }
 
+function minutesAgo(date: Date): number {
+    return Math.floor((Date.now() - date.getTime()) / 60000)
+}
+
 export default function CryptoWidget() {
     const t = useT()
+    const { data, error, lastUpdate } = useCrypto()
 
-    const coins = [
-        { name: 'Bitcoin',  ticker: 'BTC', price: '$83,420', change: 2.4  },
-        { name: 'Ethereum', ticker: 'ETH', price: '$3,180',  change: -0.8 },
-        { name: 'Solana',   ticker: 'SOL', price: '$142.50', change: 5.1  },
-    ]
+    if (error) return (
+        <div className="col-span-2 bg-[#2c2c2e] rounded-2xl p-5 border border-white/[0.08] flex items-center justify-center">
+            <p className="text-[#888] text-xs">{t.crypto.unavailable}</p>
+        </div>
+    )
+
+    if (!data) return (
+        <div className="col-span-2 bg-[#2c2c2e] rounded-2xl p-5 border border-white/[0.08] flex items-center justify-center">
+            <p className="text-[#888] text-xs animate-pulse">{t.crypto.loading}</p>
+        </div>
+    )
 
     return (
         <div className="col-span-2 bg-[#2c2c2e] rounded-2xl p-5 border border-white/[0.08] flex flex-col justify-between">
             <p className="text-[11px] uppercase tracking-widest text-[#888] mb-2">{t.crypto.title}</p>
             <div className="flex-1 flex flex-col justify-center">
-                {coins.map(c => <CryptoRow key={c.ticker} {...c} />)}
+                {data.map(c => <CryptoRow key={c.id} name={c.name} ticker={c.ticker} price={c.price} change={c.change24h} />)}
             </div>
-            <p className="text-[11px] text-[#555] mt-2">{t.crypto.updatedAgo(2)}</p>
+            {lastUpdate && (
+                <p className="text-[11px] text-[#555] mt-2">
+                    {t.crypto.updatedAgo(minutesAgo(lastUpdate))}
+                </p>
+            )}
         </div>
     )
 }
