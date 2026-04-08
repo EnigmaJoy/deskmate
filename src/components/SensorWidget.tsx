@@ -28,10 +28,18 @@ function SensorItem({ label, value, unit, percentage, accentColor }: SensorItemP
 export default function SensorsWidget() {
     const t = useT()
 
+    const SOGLIA_CM = 100 // 1 metro
+    const distanza: number = 200; // a discrezione
+
+    if (distanza < SOGLIA_CM) {
+        // mostra notifica rossa
+        // notifica di allerta - cambia colore bkg card - due stati
+    }
+
     const sensors = [
         { label: t.sensors.temperature, value: 22.4, unit: '°C', percentage: 62, accentColor: '#ff9f0a' },
-        { label: t.sensors.humidity,    value: 58,   unit: '%',  percentage: 58, accentColor: '#0a84ff' },
-        { label: t.sensors.distance,    value: 1.2,  unit: 'm',  percentage: 30, accentColor: '#30d158' },
+        { label: t.sensors.humidity, value: 43,   unit: '%',  percentage: 43, accentColor: '#0a84ff' },
+        { label: t.sensors.distance, value: 1.2,  unit: 'm',  percentage: 30, accentColor: '#30d158' },
     ]
 
     return (

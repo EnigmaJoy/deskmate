@@ -12,14 +12,15 @@ function CryptoRow({ name, ticker, price, change }: CryptoRowProps) {
     const isUp = change >= 0
     return (
         <div className="grid py-2 border-b border-white/6 last:border-0"
-             style={{ gridTemplateColumns: '1fr auto auto', gap: '0 24px' }}>
+             style={{ gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '0 24px' }}>
             <p className="text-sm font-medium text-[#f5f5f7]">
-                {name} · <span className="text-[#888] font-normal">{ticker}</span>
+                {name} ·
             </p>
+            <p className="text-[#888] font-normal">{ticker}</p>
             <p className="text-sm text-[#f5f5f7] text-right tabular-nums">
                 ${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
-            <p className={`text-xs text-right tabular-nums w-14 ${isUp ? 'text-[#30d158]' : 'text-[#ff453a]'}`}>
+            <p className={`text-sm text-right tabular-nums w-14 ${isUp ? 'text-[#30d158]' : 'text-[#ff453a]'}`}>
                 {isUp ? '+' : ''}{change}%
             </p>
         </div>
