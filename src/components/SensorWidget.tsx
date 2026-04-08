@@ -28,8 +28,8 @@ function SensorItem({ label, value, unit, percentage, accentColor }: SensorItemP
 export default function SensorsWidget() {
     const t = useT()
 
-    const SOGLIA_CM = 100 // 1 metro
-    const distanza: number = 200; // a discrezione
+    const SOGLIA_CM = 100;
+    const distanza: number = 200;
 
     if (distanza < SOGLIA_CM) {
         // mostra notifica rossa
