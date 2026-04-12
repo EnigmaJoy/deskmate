@@ -37,7 +37,11 @@ function SensorItem({ label, value, unit, percentage, accentColor, alert, alertL
     )
 }
 
-export default function SensorsWidget() {
+interface SensorsWidgetProps {
+    portrait?: boolean
+}
+
+export default function SensorsWidget({ portrait }: SensorsWidgetProps) {
     const t = useT()
     const distanceThreshold = useDeskmate(s => s.distanceThreshold)
 
@@ -60,7 +64,7 @@ export default function SensorsWidget() {
     ]
 
     return (
-        <div className="col-span-2 bg-[#2c2c2e] rounded-2xl p-5 border border-white/8 flex flex-col">
+        <div className={`${portrait ? 'col-span-1' : 'col-span-2'} bg-[#2c2c2e] rounded-2xl p-5 border border-white/8 flex flex-col`}>
             <div className="flex items-center justify-between mb-3">
                 <p className="text-[11px] uppercase tracking-widest text-[#888]">{t.sensors.title}</p>
                 {isDistanceAlert && (
