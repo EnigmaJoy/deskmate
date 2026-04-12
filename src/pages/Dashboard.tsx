@@ -3,9 +3,10 @@ import WeatherWidget from "../components/WeatherWidget.tsx"
 import CryptoWidget from "../components/CrytoWidget.tsx"
 import StatusWidget from "../components/StatusWidget.tsx"
 import { useDeskmate } from '../store/useDeskmate'
+import type { Page } from '../types'
 
 interface DashboardProps {
-    navigate: (page: 'dashboard' | 'settings') => void
+    navigate: (page: Page) => void
 }
 
 export default function Dashboard({ navigate }: DashboardProps) {

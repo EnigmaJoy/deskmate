@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { Locale } from '../lib/i18n'
+import { CITIES } from '../lib/cities'
 
 export type Orientation = 'landscape' | 'portrait'
 
@@ -28,7 +29,7 @@ export const useDeskmate = create<DeskmateStore>((set) => ({
     locale: 'it',
     brightness: 85,
     volume: 60,
-    location: { name: 'Padova', lat: 45.4064, lon: 11.8768 },
+    location: CITIES[0],
     distanceThreshold: 100,
     orientation: 'landscape',
     setLocale: (locale) => set({ locale }),

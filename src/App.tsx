@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import Dashboard from './pages/Dashboard'
 import Settings from './pages/Settings'
-
-type Page = 'dashboard' | 'settings'
+import type { Page } from './types'
 
 function App() {
     const [page, setPage] = useState<Page>('dashboard')

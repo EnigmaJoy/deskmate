@@ -1,8 +1,9 @@
 import { useT } from '../hooks/useT'
 import { useDeskmate } from '../store/useDeskmate'
+import type { Page } from '../types'
 
 interface StatusWidgetProps {
-    navigate: (page: 'dashboard' | 'settings') => void
+    navigate: (page: Page) => void
 }
 
 function Divider() {
