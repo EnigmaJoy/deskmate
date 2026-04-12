@@ -1,51 +1,72 @@
 import { useState, useEffect, useRef } from 'react'
-import {COINS, BINANCE_SYMBOLS, type CoinData} from '../lib/crypto'
+import { COINS, BINANCE_SYMBOLS, type CoinData } from '../lib/crypto'
 
 const WS_URL = 'wss://stream.binance.com:9443/stream?streams=btcusdt@ticker/ethusdt@ticker/solusdt@ticker'
 
 export function useCrypto() {
-    const [data, setData] = useState<CoinData[]>(COINS)
+    const [data, setData] = useState<CoinData[] | null>(null)
     const [error, setError] = useState(false)
     const [lastUpdate, setLastUpdate] = useState<Date | null>(null)
     const wsRef = useRef<WebSocket | null>(null)
+    const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     useEffect(() => {
+        let unmounted = false
+
         const connect = () => {
             const ws = new WebSocket(WS_URL)
             wsRef.current = ws
 
-            ws.onopen = () => setError(false)
+            ws.onopen = () => {
+                if (!unmounted) setError(false)
+            }
 
             ws.onmessage = (event) => {
+                if (unmounted) return
                 const msg = JSON.parse(event.data)
                 const ticker = msg.data
                 const id = BINANCE_SYMBOLS[ticker.s]
                 if (!id) return
 
-                setData(prev => prev.map(coin =>
-                    coin.id === id
-                        ? {
-                            ...coin,
-                            price: parseFloat(ticker.c),
-                            change24h: Math.round(parseFloat(ticker.P) * 100) / 100,
-                        }
-                        : coin
-                ))
+                setData(prev => {
+                    const base = prev ?? COINS
+                    return base.map(coin =>
+                        coin.id === id
+                            ? {
+                                ...coin,
+                                price: parseFloat(ticker.c),
+                                change24h: Math.round(parseFloat(ticker.P) * 100) / 100,
+                            }
+                            : coin
+                    )
+                })
                 setLastUpdate(new Date())
             }
 
-            ws.onerror = () => setError(true)
+            ws.onerror = () => {
+                if (!unmounted) setError(true)
+            }
 
             ws.onclose = () => {
-                // riconnette dopo 3 secondi se chiude inaspettatamente
-                setTimeout(connect, 3000)
+                if (!unmounted) {
+                    reconnectTimerRef.current = setTimeout(connect, 3000)
+                }
             }
         }
 
         connect()
 
         return () => {
-            wsRef.current?.close()
+            unmounted = true
+            if (reconnectTimerRef.current) {
+                clearTimeout(reconnectTimerRef.current)
+                reconnectTimerRef.current = null
+            }
+            if (wsRef.current) {
+                wsRef.current.onclose = null   // prevent reconnect scheduling on close
+                wsRef.current.close()
+                wsRef.current = null
+            }
         }
     }, [])
 
