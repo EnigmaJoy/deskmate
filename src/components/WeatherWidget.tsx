@@ -8,19 +8,19 @@ export default function WeatherWidget() {
     const location = useDeskmate(s => s.location)
 
     if (error) return (
-        <div className="bg-[#2c2c2e] rounded-2xl p-5 border border-white/[0.08] flex items-center justify-center">
+        <div className="bg-[#2c2c2e] rounded-2xl p-5 border border-white/8 flex items-center justify-center">
             <p className="text-[#888] text-xs">{t.weather.unavailable}</p>
         </div>
     )
 
     if (!data) return (
-        <div className="bg-[#2c2c2e] rounded-2xl p-5 border border-white/[0.08] flex items-center justify-center">
+        <div className="bg-[#2c2c2e] rounded-2xl p-5 border border-white/8 flex items-center justify-center">
             <p className="text-[#888] text-xs animate-pulse">{t.weather.loading}</p>
         </div>
     )
 
     return (
-        <div className="bg-[#2c2c2e] rounded-2xl p-5 border border-white/[0.08] flex flex-col justify-between">
+        <div className="bg-[#2c2c2e] rounded-2xl p-5 border border-white/8 flex flex-col justify-between">
             <p className="text-[11px] uppercase tracking-widest text-[#888]">
                 {t.weather.title(location.name)}
             </p>
