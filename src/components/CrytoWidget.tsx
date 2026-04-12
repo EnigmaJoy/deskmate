@@ -38,7 +38,7 @@ interface CryptoWidgetProps {
 export default function CryptoWidget({ portrait }: CryptoWidgetProps) {
     const t = useT()
     const { data, error, lastUpdate } = useCrypto()
-    const spanClass = portrait ? 'col-span-1' : 'col-span-2'
+    const spanClass = portrait ? 'flex-1' : 'col-span-2'
 
     if (error) return (
         <div className={`${spanClass} bg-[#2c2c2e] rounded-2xl p-5 border border-white/8 flex items-center justify-center`}>
