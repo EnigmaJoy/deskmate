@@ -36,19 +36,19 @@ export default function CryptoWidget() {
     const { data, error, lastUpdate } = useCrypto()
 
     if (error) return (
-        <div className="col-span-2 bg-[#2c2c2e] rounded-2xl p-5 border border-white/[0.08] flex items-center justify-center">
+        <div className="col-span-2 bg-[#2c2c2e] rounded-2xl p-5 border border-white/8 flex items-center justify-center">
             <p className="text-[#888] text-xs">{t.crypto.unavailable}</p>
         </div>
     )
 
     if (!data) return (
-        <div className="col-span-2 bg-[#2c2c2e] rounded-2xl p-5 border border-white/[0.08] flex items-center justify-center">
+        <div className="col-span-2 bg-[#2c2c2e] rounded-2xl p-5 border border-white/8 flex items-center justify-center">
             <p className="text-[#888] text-xs animate-pulse">{t.crypto.loading}</p>
         </div>
     )
 
     return (
-        <div className="col-span-2 bg-[#2c2c2e] rounded-2xl p-5 border border-white/[0.08] flex flex-col justify-between">
+        <div className="col-span-2 bg-[#2c2c2e] rounded-2xl p-5 border border-white/8 flex flex-col justify-between">
             <p className="text-[11px] uppercase tracking-widest text-[#888] mb-2">{t.crypto.title}</p>
             <div className="flex-1 flex flex-col justify-center">
                 {data.map(c => <CryptoRow key={c.id} name={c.name} ticker={c.ticker} price={c.price} change={c.change24h} />)}

@@ -18,6 +18,8 @@ const translations = {
             temperature: 'Temperatura',
             humidity: 'Umidità',
             distance: 'Distanza',
+            alert: 'Allerta',
+            tooClose: 'Oggetto troppo vicino!',
         },
         crypto: {
             title: 'Crypto',
@@ -61,6 +63,8 @@ const translations = {
             temperature: 'Temperature',
             humidity: 'Humidity',
             distance: 'Distance',
+            alert: 'Alert',
+            tooClose: 'Object too close!',
         },
         crypto: {
             title: 'Crypto',
@@ -104,6 +108,8 @@ const translations = {
             temperature: '温度',
             humidity: '湿度',
             distance: '距离',
+            alert: '警报',
+            tooClose: '物体太近！',
         },
         crypto: {
             title: '加密货币',
