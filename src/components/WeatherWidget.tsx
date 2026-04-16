@@ -25,27 +25,31 @@ export default function WeatherWidget({ portrait }: WeatherWidgetProps) {
     )
 
     return (
-        <div className={`${base} flex flex-col gap-3`}>
-            <p className="text-[11px] uppercase tracking-widest text-[#888]">
-                {t.weather.title(location.name)}
-            </p>
+        <div className={`${base} flex flex-row gap-3`}>
+            <div className="flex flex-col">
 
-            <div className="flex items-baseline gap-3">
-                <p className="text-4xl font-extralight text-[#f5f5f7] leading-none tracking-tight">
-                    {data.temperature}°
-                </p>
-                <p className="text-xs text-[#888]">
-                    {t.wmo[data.weatherCode] ?? '—'}
-                </p>
+                <div className="flex items-baseline gap-3">
+                    <p className="text-4xl font-extralight text-[#f5f5f7] leading-none tracking-tight">
+                        {data.temperature}°
+                    </p>
+                    <p className="text-xs text-[#888]">
+                        {t.wmo[data.weatherCode] ?? '—'}
+                    </p>
+                </div>
             </div>
-
-            <div className="flex justify-between text-xs text-[#888]">
+            <div className="flex flex-col">
+                <p className="text-[11px] uppercase tracking-widest text-[#888]">
+                    {t.weather.title(location.name)}
+                </p></div>
+            <div className="flex flex-col">
+                <div className="flex justify-between text-xs text-[#888]">
                 <span>
                     {t.weather.min} <span className="text-[#f5f5f7]">{data.tempMin}°</span> · {t.weather.max} <span className="text-[#f5f5f7]">{data.tempMax}°</span>
                 </span>
-                <span>
+                    <span>
                     {t.weather.wind} <span className="text-[#f5f5f7]">{data.windspeed} km/h</span> · {t.weather.humidity} <span className="text-[#f5f5f7]">{data.humidity}%</span>
                 </span>
+                </div>
             </div>
         </div>
     )
