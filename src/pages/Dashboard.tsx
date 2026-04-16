@@ -1,3 +1,4 @@
+import React from 'react'
 import SensorsWidget from "../components/SensorWidget.tsx"
 import WeatherWidget from "../components/WeatherWidget.tsx"
 import CryptoWidget from "../components/CrytoWidget.tsx"
@@ -13,22 +14,22 @@ export default function Dashboard({ navigate }: DashboardProps) {
     const orientation = useDeskmate(s => s.orientation)
 
     if (orientation === 'portrait') {
+        const cell: React.CSSProperties = { flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }
         return (
             <div style={{
                 width: '480px',
                 height: '800px',
-                display: 'grid',
-                gridTemplateColumns: '1fr',
-                gridTemplateRows: '1fr 1fr 1fr 1fr',
+                display: 'flex',
+                flexDirection: 'column',
                 gap: '12px',
                 padding: '20px',
                 background: '#1c1c1e',
                 boxSizing: 'border-box',
             }}>
-                <SensorsWidget portrait />
-                <WeatherWidget />
-                <CryptoWidget portrait />
-                <StatusWidget navigate={navigate} />
+                <div style={cell}><SensorsWidget portrait /></div>
+                <div style={cell}><WeatherWidget portrait /></div>
+                <div style={cell}><CryptoWidget portrait /></div>
+                <div style={cell}><StatusWidget navigate={navigate} portrait /></div>
             </div>
         )
     }
